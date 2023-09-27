@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Carousel</title>
+  </head>
+  <body>
+    <h1>Slideshow Gallery</h1>
+    <div class="container">
+      <div class="slides">
+        <div class="slide">
+          <img
+            src="https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
+        </div>
+
+        <div class="slide">
+          <img
+            src="https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
+        </div>
+        <div class="slide">
+          <img
+            src="https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
+        </div>
+        <div class="slide">
+          <img
+            src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          />
+        </div>
+        <div class="slide">
+          <img
+            src="https://images.pexels.com/photos/196655/pexels-photo-196655.jpeg?cs=srgb&dl=pexels-picjumbocom-196655.jpg&fm=jpg"
+          />
+        </div>
+        <div class="button">
+        <button class="w3-button w3-black w3-display-left" onclick="showSlide(-1)">&#10094;
+        </button>
+        <button class="w3-button w3-black w3-display-right" onclick="showSlide(1)">&#10095;
+        
+        </button>
+      </div>
+      <div class="thumbs"></div>
+    </div>
+  </body>
+  <script>
+    
+    let slides=document.querySelectorAll(".slide");
+    let thumbs=document.querySelector(".thumbs");
+    slides.forEach((slide,index)=>{
+        slide.dataset.id=index;
+        const imgSrc = slide.querySelector("img").src;
+        thumbs.innerHTML+=`<button class="thumb" onclick="switchImage(${index})" data-id="${index}"><img src=${imgSrc}/></button>`;
+    })
+    switchImage(0)
+ 
+ function switchImage(index){
+    slides.forEach((slide, loopIndex)=> {
+        if (index == loopIndex) {
+            slide.classList.remove("hidden");
+            document.querySelector(`.thumb[data-id="${loopIndex}"]`).classList.add("active");
+
+        } else {
+            slide.classList.add("hidden");
+            document.querySelector(`.thumb[data-id="${loopIndex}"]`).classList.remove("active");
+        }
+    });
+ }
+
+   let slideIndex=0;   
+   
+   function showSlide(n){     
+    slideIndex+=n;
+  
+    console.log(slideIndex)
+    if(slideIndex<0){slideIndex=slides.length - 1}
+    if(slideIndex>slides.length - 1){slideIndex = 0}
+    slides.forEach((slide,index)=>{
+        if (slideIndex == index) {
+            slide.classList.remove("hidden");
+            document.querySelector(`.thumb[data-id="${index}"]`).classList.add("active");
+        } else {
+            slide.classList.add("hidden");
+            document.querySelector(`.thumb[data-id="${index}"]`).classList.remove("active");
+        }
+    })
+   }
+  </script>
+</html>
